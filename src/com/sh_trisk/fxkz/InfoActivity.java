@@ -21,8 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InfoActivity extends Activity {
-	private TextView title, from, to, left, right, leftone, lefttwo, leftstart, leftend, rightone, righttwo, rightstart, rightend ;
-	private int left0=0, right0=0, right1 = 0, right2 = 0, left1 = 0, left2 = 0, id = 0;
+	private TextView title, from, to, left, right, leftone, lefttwo, leftstart, leftend, rightone, righttwo, rightstart,
+			rightend;
+	private int left0 = 0, right0 = 0, right1 = 0, right2 = 0, left1 = 0, left2 = 0, id = 0;
+	private boolean refreshFlag = true;
 	private float DENSITY = 0f;
 	private String token, l1 = "", l2 = "", r1 = "", r2 = "";
 	// private Map<Integer, ImageView> ID_IV;
@@ -81,14 +83,14 @@ public class InfoActivity extends Activity {
 		title = (TextView) this.findViewById(R.id.infotitle);
 		from = (TextView) this.findViewById(R.id.from);
 		to = (TextView) this.findViewById(R.id.to);
-		leftstart = (TextView)this.findViewById(R.id.leftstart);
-		leftone = (TextView)this.findViewById(R.id.leftone);
-		lefttwo = (TextView)this.findViewById(R.id.lefttwo);
-		leftend = (TextView)this.findViewById(R.id.leftend);
-		rightstart = (TextView)this.findViewById(R.id.rightstart);
-		rightone = (TextView)this.findViewById(R.id.rightone);
-		righttwo = (TextView)this.findViewById(R.id.righttwo);
-		rightend = (TextView)this.findViewById(R.id.rightend);
+		leftstart = (TextView) this.findViewById(R.id.leftstart);
+		leftone = (TextView) this.findViewById(R.id.leftone);
+		lefttwo = (TextView) this.findViewById(R.id.lefttwo);
+		leftend = (TextView) this.findViewById(R.id.leftend);
+		rightstart = (TextView) this.findViewById(R.id.rightstart);
+		rightone = (TextView) this.findViewById(R.id.rightone);
+		righttwo = (TextView) this.findViewById(R.id.righttwo);
+		rightend = (TextView) this.findViewById(R.id.rightend);
 		leftstart.setText(intent.getStringExtra("start"));
 		rightstart.setText(intent.getStringExtra("start"));
 		rightend.setText(intent.getStringExtra("end"));
@@ -116,16 +118,16 @@ public class InfoActivity extends Activity {
 				case 1:
 					PID = R.id.left1chen;
 					start = left2;
-					dis = left1-left2;
+					dis = left1 - left2;
 					break;
 				case 0:
 					PID = R.id.right1chen;
 					start = right2;
-					dis = right1-right2;
+					dis = right1 - right2;
 				}
 				int id = data.getInt("horizontal_section_id");
 				addImageView(data.getInt("distance") - start, id, PID, dis);
-				
+
 				for (int j = 0; j < other.length(); j++) {
 					JSONObject data2 = other.getJSONObject(j);
 					if (data2.getInt("id") == id) {
@@ -141,20 +143,27 @@ public class InfoActivity extends Activity {
 			e.printStackTrace();
 		}
 		// 开启刷新通信任务
-		new RefreshTask().execute("/api/devicelogicdatas?sub_project_id=" + id + "&x_auth_token=" + token);
+		try {
+			while (refreshFlag) {
+				new RefreshTask().execute("/api/devicelogicdatas?sub_project_id=" + id + "&x_auth_token=" + token);
+				Thread.currentThread().sleep(1000*60);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	private void addImageView(int x, int ID, int parentID, int distance) {
-		System.out.println("x=" +x);
-		System.out.println("density" +DENSITY);
-		System.out.println("x*800*DENSITY=" +x*800 * DENSITY);
-		System.out.println("addImageView" +(int) (x*800 * DENSITY/distance));
-		System.out.println("MARGINTOP=" +10*DENSITY);
+		System.out.println("x=" + x);
+		System.out.println("density" + DENSITY);
+		System.out.println("x*800*DENSITY=" + x * 800 * DENSITY);
+		System.out.println("addImageView" + (int) (x * 800 * DENSITY / distance));
+		System.out.println("MARGINTOP=" + 10 * DENSITY);
 		ImageView iv = new ImageView(InfoActivity.this);
 		iv.setTag(ID);
 		RelativeLayout rl = (RelativeLayout) this.findViewById(parentID);
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams((int) (30 * DENSITY), (int) (30 * DENSITY));
-		lp.setMargins((int) (x*800 * DENSITY/distance), (int) (10 * DENSITY), 0, 0);
+		lp.setMargins((int) (x * 800 * DENSITY / distance), (int) (10 * DENSITY), 0, 0);
 		iv.setLayoutParams(lp);
 		rl.addView(iv);
 		ID_IV.put(ID, iv);
@@ -190,7 +199,8 @@ public class InfoActivity extends Activity {
 					ID_OBJECT.get(hsid).setCurrent_1(data.getDouble("current_1"));
 					ID_OBJECT.get(hsid).setCurrent_2(data.getDouble("current_2"));
 					ID_OBJECT.get(hsid).setCreate_time(data.getString("create_time"));
-					System.out.println(hsid+"current_1"+data.getDouble("current_1")+"current_2"+data.getDouble("current_2")+"create_time"+data.getString("create_time"));
+					System.out.println(hsid + "current_1" + data.getDouble("current_1") + "current_2"
+							+ data.getDouble("current_2") + "create_time" + data.getString("create_time"));
 				}
 				JSONObject data = ja.getJSONObject(ja.length() - 1);
 				sb.append(data.getInt("horizontal_section_id")).append("A").append(data.getInt("status"));
@@ -242,7 +252,7 @@ public class InfoActivity extends Activity {
 		protected String doInBackground(Integer... params) {
 			// TODO Auto-generated method stub
 			int thishid = params[0];
-			Intent intent2 = new Intent(InfoActivity.this,Details.class);
+			Intent intent2 = new Intent(InfoActivity.this, Details.class);
 			Sampler s = ID_OBJECT.get(thishid);
 			intent2.putExtra("vm_no", s.getVm_no());
 			intent2.putExtra("dig_time", s.getDig_time());
@@ -254,9 +264,9 @@ public class InfoActivity extends Activity {
 			intent2.putExtra("pos_x", s.getPos_x());
 			intent2.putExtra("current_1", s.getCurrent_1());
 			intent2.putExtra("current_2", s.getCurrent_2());
-			System.out.println("code_no:"+s.getCode_no());
-			System.out.println("pos_x:"+s.getPos_x());
-			System.out.println("current_1:"+s.getCurrent_1());
+			System.out.println("code_no:" + s.getCode_no());
+			System.out.println("pos_x:" + s.getPos_x());
+			System.out.println("current_1:" + s.getCurrent_1());
 			startActivity(intent2);
 			return null;
 		}
