@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0FFFF" >
+
+    <ImageView
+        android:id="@+id/mint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mint" />
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mint"
+        android:layout_toLeftOf="@+id/mint"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mint"
+        android:layout_toRightOf="@+id/mint"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:id="@+id/samp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mint"
+        android:layout_marginTop="20dp" >
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="#778899" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="二衬"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="#ADD8E6" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="初衬"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/samp"
+        android:layout_marginTop="20dp"
+        android:background="#F0E68C" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/leftgraph"
+                android:layout_width="1150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="左"
+                    android:textSize="40sp" />
+
+                <RelativeLayout
+                    android:id="@+id/left2chen"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="#778899" >
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/left1chen"
+                    android:layout_width="800dp"
+                    android:layout_height="50dp"
+                    android:background="#ADD8E6" >
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff" >
+                    
+                    <ImageView 
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/direction"
+                    android:contentDescription="箭头"/>
+                </RelativeLayout>
+                
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/leftstart"
+                android:layout_below="@+id/leftgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/lefttwo"
+                android:layout_below="@+id/leftgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/leftone"
+                android:layout_below="@+id/leftgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="930dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/leftend"
+                android:layout_below="@+id/leftgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1030dp"
+                android:text=""
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/rightgraph"
+                android:layout_width="1150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/leftstart"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="右"
+                    android:textSize="40sp" />
+
+                <RelativeLayout
+                    android:id="@+id/right2chen"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="#778899" >
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/right1chen"
+                    android:layout_width="800dp"
+                    android:layout_height="50dp"
+                    android:background="#ADD8E6" >
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff" >
+                    
+                    <ImageView 
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/direction"
+                    android:contentDescription="箭头"/>
+                </RelativeLayout>
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/rightstart"
+                android:layout_below="@+id/rightgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/righttwo"
+                android:layout_below="@+id/rightgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/rightone"
+                android:layout_below="@+id/rightgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="930dp"
+                android:text=""
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/rightend"
+                android:layout_below="@+id/rightgraph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1030dp"
+                android:text=""
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rightstart"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>
