@@ -21,6 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InfoActivity extends Activity {
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		refreshFlag = false;
+	}
+
 	private TextView title, from, to, left, right, leftone, lefttwo, leftstart, leftend, rightone, righttwo, rightstart,
 			rightend;
 	private int left0 = 0, right0 = 0, right1 = 0, right2 = 0, left1 = 0, left2 = 0, id = 0;
@@ -143,14 +150,22 @@ public class InfoActivity extends Activity {
 			e.printStackTrace();
 		}
 		// 开启刷新通信任务
-		try {
-			while (refreshFlag) {
-				new RefreshTask().execute("/api/devicelogicdatas?sub_project_id=" + id + "&x_auth_token=" + token);
-				Thread.currentThread().sleep(1000*60);
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					while (refreshFlag) {
+						new RefreshTask().execute("/api/devicelogicdatas?sub_project_id=" + id + "&x_auth_token=" + token);
+						Thread.currentThread().sleep(1000*60);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		});
+		thread.start();
 	}
 
 	private void addImageView(int x, int ID, int parentID, int distance) {
@@ -272,4 +287,5 @@ public class InfoActivity extends Activity {
 		}
 
 	}
+	
 }
